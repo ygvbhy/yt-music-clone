@@ -4,8 +4,9 @@ import { sleep } from "@/lib/utils";
 import React from "react";
 
 const page = async () => {
-  await sleep(2000);
-
+  console.log("before HomePage sleep ...");
+  await sleep(4000);
+  console.log("after HomePage sleep ...");
   // throw new Error("my Error");
   return <div>HomePage</div>;
 };
