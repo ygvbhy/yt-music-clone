@@ -1,5 +1,5 @@
 import React from "react";
-import Logo from "./elements/logo";
+import Logo from "./elements/Logo";
 import Nabigator from "./elements/Navigator";
 
 const Sidebar = ({ children }) => {
