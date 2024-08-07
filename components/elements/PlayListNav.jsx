@@ -9,15 +9,12 @@ const PlayListNav = ({ playlist }) => {
   };
 
   return (
-    <li className="mx-3 px-4 h-[56px] flex flex-row justify-between items-center hover:bg-neutral-700 rounded-lg group">
+    <li className="mx-3 px-4 h-[56px] flex flex-row justify-between items-center hover:bg-neutral-700 rounded-lg group cursor-pointer">
       <div>
         <div className="text-[14px]">{playlistName}</div>
         <div className="text-[12px] text-neutral-500">{owner}</div>
       </div>
-      <div
-        onClick={onClickPlay}
-        className="hidden group-hover:block cursor-pointer"
-      >
+      <div onClick={onClickPlay} className="hidden group-hover:block">
         <IoMdPlayCircle size={30}></IoMdPlayCircle>
       </div>
     </li>
