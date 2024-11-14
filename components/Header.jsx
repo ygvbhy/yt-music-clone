@@ -18,6 +18,7 @@ import {
 import Logo from "./elements/Logo";
 import Navigator from "./elements/Navigator";
 import { cn } from "@/lib/utils";
+import useUIState from "@/hooks/useUIState";
 
 const HeaderDrawer = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -43,6 +44,7 @@ const HeaderDrawer = ({ children }) => {
 };
 
 const Header = ({ children }) => {
+  const { homeCategory, headerImageSrc } = useUIState();
   const [isScrolled, setIsScrolled] = useState(false);
   const headRef = useRef();
   useEffect(() => {
@@ -63,7 +65,10 @@ const Header = ({ children }) => {
       <section className="absolute top-0 w-full">
         <div className="relative h-[400px] w-full">
           <Image
-            src="https://images.unsplash.com/photo-1707833558984-3293e794031c"
+            src={
+              headerImageSrc ||
+              "https://images.unsplash.com/photo-1707833558984-3293e794031c"
+            }
             fill
             alt="mediaItem"
             className="object-cover"
