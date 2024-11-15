@@ -7,14 +7,14 @@ import { MdMoreVert } from "react-icons/md";
 import { FiPlay } from "react-icons/fi";
 import IconButton from "./elements/IconButton";
 
-const PlayListCard = ({ playlist }) => {
+const PlayListCard = ({ playlist = {} } = {}) => {
   const { push } = useRouter();
-  const { id, owner, playlistName, songList } = playlist;
+  const { id, owner = "", playlistName = "", songList = [] } = playlist ?? {};
   const songListLen = songList?.length;
-  const imgSrc = getRandomElementFromArray(songList).imageSrc;
+  const imgSrc = getRandomElementFromArray(songList)?.imageSrc;
 
   const onClickCard = () => {
-    push(`/playlist?list=${id}`);
+    if (id) push(`/playlist?list=${id}`);
   };
 
   const onClickPlay = () => {};
@@ -23,7 +23,10 @@ const PlayListCard = ({ playlist }) => {
     <article className="h-[240px] cursor-pointer group">
       <section className="relative h-[136px]" onClick={onClickCard}>
         <Image
-          src={imgSrc}
+          src={
+            imgSrc ||
+            "https://images.unsplash.com/photo-1707833558984-3293e794031c"
+          }
           fill={true}
           alt="thumbnail"
           className="object-cover"
