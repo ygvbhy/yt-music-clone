@@ -1,7 +1,16 @@
+import { getPlaylistById } from "@/lib/dummyData";
 import React from "react";
 
-const playlist = ({ searchParams }) => {
-  return <div>playlist / [{searchParams.list}]</div>;
+interface PlaylistPageProps {
+  searchParams: {
+    list: string;
+  };
+}
+
+const page = async (props: PlaylistPageProps) => {
+  const playlistId = await getPlaylistById(+props.searchParams.list);
+
+  return <div>playlist / [{props.searchParams.list}]</div>;
 };
 
-export default playlist;
+export default page;
