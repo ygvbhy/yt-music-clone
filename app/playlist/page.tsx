@@ -1,5 +1,8 @@
 import { getPlaylistById } from "@/lib/dummyData";
+import { getRandomElementFromArray } from "@/lib/utils";
+import { permanentRedirect } from "next/navigation";
 import React from "react";
+import HeaderBgChanger from "@/components/HeaderBgChanger";
 
 interface PlaylistPageProps {
   searchParams: {
@@ -8,9 +11,17 @@ interface PlaylistPageProps {
 }
 
 const page = async (props: PlaylistPageProps) => {
-  const playlistId = await getPlaylistById(+props.searchParams.list);
+  const playlist = await getPlaylistById(+props.searchParams.list);
 
-  return <div>playlist / [{props.searchParams.list}]</div>;
+  if (!playlist) permanentRedirect("/");
+
+  const imageSrc = getRandomElementFromArray(playlist.songList)?.imageSrc;
+
+  return (
+    <div>
+      <HeaderBgChanger imageSrc={imageSrc} />
+    </div>
+  );
 };
 
 export default page;
