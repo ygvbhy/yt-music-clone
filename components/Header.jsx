@@ -5,16 +5,7 @@ import UserIcon from "@/components/UserIcon";
 import PagePadding from "@/components/PagePadding";
 import { FaChromecast } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
+import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 import Logo from "./elements/Logo";
 import Navigator from "./elements/Navigator";
 import { cn } from "@/lib/utils";
@@ -44,19 +35,20 @@ const HeaderDrawer = ({ children }) => {
 };
 
 const Header = ({ children }) => {
-  const { homeCategory, headerImageSrc } = useUIState();
+  const { headerImageSrc } = useUIState();
   const [isScrolled, setIsScrolled] = useState(false);
   const headRef = useRef();
   useEffect(() => {
+    const currentHeadRef = headRef.current;
     const handleScroll = () => {
       const scrollValue = headRef?.current?.scrollTop;
       setIsScrolled(scrollValue !== 0);
     };
 
-    headRef?.current?.addEventListener("scroll", handleScroll);
+    currentHeadRef.addEventListener("scroll", handleScroll);
 
     return () => {
-      headRef?.current?.removeEventListener("scroll", handleScroll);
+      currentHeadRef.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
