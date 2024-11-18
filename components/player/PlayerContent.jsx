@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useCallback, useEffect } from "react";
 import { Slider as PlayerSlider } from "@/components/ui/playerSlider";
 import { useAudio } from "react-use";
 import {
@@ -16,22 +16,50 @@ import Image from "next/image";
 import { RxLoop } from "react-icons/rx";
 
 const PlayerContent = () => {
-  const { activeSong } = usePlayerState();
+  const { activeSong, prevPlayerQueue, nextPlayerQueue, playBack, playNext } =
+    usePlayerState();
   const [audio, state, controls, ref] = useAudio({
     src: activeSong?.src,
-    autoPlay: false,
+    autoPlay: true,
   });
 
   const isLoading = activeSong?.src && state.buffered?.length === 0;
 
-  const onClickPreBtn = () => {};
-  const onClickNextBtn = () => {};
+  const onClickPrevBtn = () => {
+    if (state.playing && state.time > 10) {
+      controls.seek(0);
+      return;
+    }
+    if (prevPlayerQueue.length === 0) return;
+    playBack();
+  };
+
   const onClickStartBtn = () => {
-    controls.play();
+    if (activeSong) {
+      controls.play();
+    } else {
+      playNext();
+    }
   };
   const onClickPauseBtn = () => {
     controls.pause();
   };
+
+  const onClickNextBtn = useCallback(() => {
+    if (nextPlayerQueue.length === 0) {
+      controls.pause();
+    } else {
+      playNext();
+    }
+  }, [controls, playNext, nextPlayerQueue]);
+
+  useEffect(() => {
+    const refAudio = ref.current;
+    refAudio.addEventListener("ended", onClickNextBtn);
+    return () => {
+      refAudio.removeEventListener("ended", onClickNextBtn);
+    };
+  }, [ref, onClickNextBtn]);
 
   return (
     <div className="h-full w-full relative">
@@ -47,11 +75,11 @@ const PlayerContent = () => {
       </div>
       {audio}
       <section className="flex flex-row justify-between items-center w-full h-full px-2 lg:px-6">
-        <div className="h-full flex flxe-row items-center gap-1">
+        <div className="h-full flex flex-row items-center gap-1">
           <IoPlaySkipBackSharp
             size={24}
             className=" cursor-pointer"
-            onClick={onClickPreBtn}
+            onClick={onClickPrevBtn}
           />
           {isLoading ? (
             <ClipLoader color="#fff" />

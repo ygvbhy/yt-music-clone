@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Logo from "./elements/Logo";
-import Nabigator from "./elements/Navigator";
+import Navigator from "./elements/Navigator";
 import usePlayerState from "@/hooks/usePlayerState";
 import { cn } from "@/lib/utils";
 
@@ -19,7 +19,7 @@ const Sidebar = ({ children }) => {
           <Logo />
         </div>
         <div>
-          <Nabigator />
+          <Navigator />
         </div>
       </nav>
       <div className="w-full lg:w-[calc(100%-240px)]">{children}</div>
