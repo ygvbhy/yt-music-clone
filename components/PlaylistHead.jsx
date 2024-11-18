@@ -39,7 +39,7 @@ const PlaylistHead = ({ playlist = {} } = {}) => {
               onClick={onClickPlayList}
             />
             <DarkButton
-              className={"w-[135px] text-[14px]"}
+              className={"w-[140px] text-[14px]"}
               icon={<FiFolderPlus />}
               label="보관함에 저장"
             />
@@ -55,7 +55,7 @@ const PlaylistHead = ({ playlist = {} } = {}) => {
           onClick={onClickPlayList}
         />
         <DarkButton
-          className={"w-[135px] text-[14px]"}
+          className={"w-[140px] text-[14px]"}
           icon={<FiFolderPlus />}
           label="보관함에 저장"
         />
